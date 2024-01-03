@@ -1,9 +1,16 @@
 @import url("https://fonts.googleapis.com/css?family=Dosis");
+
+body{
+  margin: 200px;
+  background: linear-gradient(90deg, rgb(218, 111, 111), rgb(75, 170, 91));
+}
+
 #calculatorBody {
+  margin-top: 10px;
   width: 360px;
-  background: #ffdead;
+  background: #171717;
   margin: auto;
-  padding: 5px;
+  padding: 10px;
   border-radius: 10px;
   box-shadow: 2px 2px 10px;
 }
