@@ -1,3 +1,4 @@
+
 var queue = "";
 var input = 0;
 
@@ -10,6 +11,8 @@ function clearAll() {
   input = 0;
   document.getElementById("answer").innerHTML = "0";
 }
+
+
 
 function numericButton(arg) {
   if (
@@ -28,10 +31,9 @@ function operatorButton(arg) {
 }
 
 const precedenceRank = {
-  "^": 3,
+  
   "/": 2,
   "*": 2,
-
   "+": 1,
   "-": 1,
 };
@@ -43,20 +45,24 @@ function calculateQueue(queue) {
   document.getElementById("answer").innerHTML = result;
 }
 
+
+
 function normalExpressionToPostfix(expression) {
   let lastDigitIndex = 0;
   let postfixStack = [];
   let listOfSymbol = [];
-  let stringOfSymbols = "^/*+-";
+  let stringOfSymbols = "/*+-";
+
 
    // Loop through each character in the expression
   for (let i = 0; i < expression.length; i++) {
     let currentElement = expression.charAt(i);
     let indexOfCurrentElement = i;
 
+
      // If the current element is a symbol
     if (i > 0 && stringOfSymbols.includes(currentElement)) {
-      
+
       // Extract the number before the symbol and push it to the stack
       let numberToBePushed = expression
         .substring(lastDigitIndex, indexOfCurrentElement)
@@ -64,7 +70,7 @@ function normalExpressionToPostfix(expression) {
       postfixStack.push(numberToBePushed);
 
        // Update indexes and handle symbols
-      lastDigitIndex = indexOfCurrentElement + 1;
+      lastDigitIndex = indexOfCurrentElement + 1; //2
       insertSymbolIntopostfixStack(postfixStack, listOfSymbol, currentElement);
     } else if (i === expression.length - 1) {
        // If it's the last character, extract the last number and push it to the stack
@@ -87,6 +93,9 @@ function normalExpressionToPostfix(expression) {
   if (isNaN(result)) return "Error";
   return result;
 }
+
+
+
 // Function to insert symbols into the postfix stack based on precedence
 function insertSymbolIntopostfixStack(
   postfixStack,
@@ -108,6 +117,9 @@ function emptylistOfSymbol(listOfSymbol, postfixStack) {
     postfixStack.push(listOfSymbol.pop());
   }
 }
+
+
+
 // Function to perform calculations based on the postfix expression
 function performCalculation(postfixStack) {
   let numberStack = [];
@@ -116,15 +128,13 @@ function performCalculation(postfixStack) {
   while (postfixStack.length > 0) {
     let firstPoppedElement = postfixStack.shift();
     // If the element is an operator, perform the corresponding operation
-    if ("^/*+-".includes(firstPoppedElement)) {
+    if ("/*+-".includes(firstPoppedElement)) {
       let secondNumber = parseFloat(numberStack.pop());
       let firstNumber = parseFloat(numberStack.pop());
       //console.log(secondNumber + " " + firstNumber);
 
        // Perform the operation based on the operator
-      if (firstPoppedElement === "^")
-        numberStack.push(Math.pow(firstNumber, secondNumber));
-      else if (firstPoppedElement === "/")
+      if (firstPoppedElement === "/")
         numberStack.push(firstNumber / secondNumber);
       else if (firstPoppedElement === "*")
         numberStack.push(firstNumber * secondNumber);
@@ -147,3 +157,30 @@ function saveToStorage(expression, result) {
   localStorage.setItem(expression, result);
   sessionStorage.setItem(expression, result);
 }
+document.addEventListener('keydown', function(event) {
+  const keyPressed = event.key;
+
+  if (!isNaN(keyPressed) || "+-*/.".includes(keyPressed)) {
+    if (!isNaN(keyPressed)) {
+      // If the key pressed is a number, call the numericButton function
+      numericButton(keyPressed);
+    } else {
+      // If the key pressed is an operator or a decimal point, call the operatorButton function
+      if (keyPressed === '*' || keyPressed === '/') {
+        operatorButton(keyPressed);
+      } else if (keyPressed === '+') {
+        operatorButton('+');
+      } else if (keyPressed === '-') {
+        operatorButton('-');
+      } else if (keyPressed === '.') {
+        numericButton('.');
+      }
+    }
+  } else if (keyPressed === "Enter" || keyPressed === "=") {
+    // If the Enter key or "=" is pressed, calculate the result
+    calculateQueue(queue);
+  } else if (keyPressed === "Escape") {
+    // If the Escape key is pressed, clear the queue and reset the display
+    clearAll();
+  }
+});
