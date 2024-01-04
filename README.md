@@ -20,7 +20,7 @@ Its useful for simple calculations.
 * javascript
 
   
-Screenshoot
+## Screenshot
 
 ![Calculatot](Screenshot.png)
 
