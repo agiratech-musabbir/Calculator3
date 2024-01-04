@@ -21,7 +21,8 @@ Its useful for simple calculations.
 
   
 Screenshoot
-![Calculatot](Screenshoot.png)
+
+![Calculatot](Screenshot.png)
 
 * Hosted Link of calculator 
 https://agiratech-musabbir.github.io/Calculator3/
