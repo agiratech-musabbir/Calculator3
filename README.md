@@ -25,8 +25,8 @@ Screenshoot
 ![Calculatot](Screenshot.png)
 
 * Hosted Link of calculator
-* 
-https://agiratech-musabbir.github.io/Calculator3/
+
+ https://agiratech-musabbir.github.io/Calculator3/
 
 ## License
 Copyright (c) [2024] [Md Musabbir]
